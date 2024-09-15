@@ -1,7 +1,9 @@
 package main
 
-import "fmt"
+import (
+	soundmaker "audiobook-maker/soundMaker"
+)
 
 func main() {
-	fmt.Println("test")
+	soundmaker.MakeAudio("this is a test and i hope it works", "./", "test sound")
 }
