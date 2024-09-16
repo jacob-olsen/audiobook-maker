@@ -1,9 +1,9 @@
 package main
 
 import (
-	soundmaker "audiobook-maker/soundMaker"
+	filehandler "audiobook-maker/fileHandler"
 )
 
 func main() {
-	soundmaker.MakeAudio("this is a test and i hope it works", "./", "test sound")
+	filehandler.Setup()
 }
