@@ -1,2 +1,3 @@
 soundMaker/voice/*
 library
+*.sqlite

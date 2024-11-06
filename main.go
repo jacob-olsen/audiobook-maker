@@ -1,9 +1,10 @@
 package main
 
 import (
-	filehandler "audiobook-maker/fileHandler"
+	metahandler "audiobook-maker/metaHandler"
 )
 
 func main() {
-	filehandler.Setup()
+	metahandler.MakeTabels()
+
 }
