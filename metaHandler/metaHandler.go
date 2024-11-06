@@ -37,11 +37,20 @@ func MakeTabels() {
 	db.Exec("CREATE TABLE IF NOT EXISTS bookPage(Id INTEGER,pageCount INTEGER, addData INTEGER,bookId INTEGER, fileName TEXT, PRIMARY KEY(Id));")
 }
 
+// user cotroles
 func AddUser(userName, passWord string) {
 	if db == nil {
 		SetUp()
 	}
-	db.Exec("INSERT INTO \"user\" (UserName, PassWord) VALUES(?, ?);", userName, passWord)
+	data, _ := db.Exec("INSERT INTO \"user\" (UserName, PassWord) VALUES(?, ?);", userName, passWord)
+	id, _ := data.LastInsertId()
+	fmt.Println("new user addet(", id, ":", userName, ")")
+}
+func UpdateUserPassword(passWord string, Id int) {
+	if db == nil {
+		SetUp()
+	}
+	db.Exec("UPDATE \"user\" SET PassWord=? WHERE Id=?;", passWord, Id)
 }
 func TestUser(userName, passWord string) (userId int) {
 	if db == nil {
@@ -49,4 +58,28 @@ func TestUser(userName, passWord string) (userId int) {
 	}
 	db.QueryRow("SELECT Id FROM \"user\" WHERE UserName = ? AND PassWord = ?;", userName, passWord).Scan(&userId)
 	return
+}
+func GetUser(Id int) (name string) {
+	db.QueryRow("SELECT UserName FROM \"user\" WHERE Id = ?").Scan(&name)
+	return
+}
+func GetUserList() (data []User) {
+	rows, _ := db.Query("SELECT Id, UserName FROM \"user\"")
+	for rows.Next() {
+		id := 0
+		name := ""
+		rows.Scan(&id, &name)
+		data = append(data, User{Id: id, UserName: name})
+	}
+	return
+}
+
+func addAuther(autherName string) int {
+	data, _ := db.Exec("INSERT INTO Auther (name) VALUES(?);", autherName)
+	id, _ := data.LastInsertId()
+	fmt.Println("add auther(", id, ":", autherName, ")")
+	return int(id)
+}
+func AddBook(bookInfo Book) {
+
 }
