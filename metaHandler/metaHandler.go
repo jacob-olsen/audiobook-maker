@@ -74,12 +74,16 @@ func GetUserList() (data []User) {
 	return
 }
 
-func addAuther(autherName string) int {
+func AddAuther(autherName string) int {
 	data, _ := db.Exec("INSERT INTO Auther (name) VALUES(?);", autherName)
 	id, _ := data.LastInsertId()
 	fmt.Println("add auther(", id, ":", autherName, ")")
 	return int(id)
 }
+func RenameAuther(autherName string, Id int) {
+	db.Exec("UPDATE Auther SET name=? WHERE Id=?;", autherName, Id)
+}
+
 func AddBook(bookInfo Book) {
 
 }
