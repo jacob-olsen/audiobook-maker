@@ -31,10 +31,10 @@ func MakeTabels() {
 	}
 	db.Exec("CREATE TABLE IF NOT EXISTS user(Id INTEGER,userName TEXT, passWord TEXT, PRIMARY KEY(Id));")
 	db.Exec("CREATE TABLE IF NOT EXISTS Auther(Id INTEGER,name TEXT, PRIMARY KEY(Id));")
-	db.Exec("CREATE TABLE IF NOT EXISTS book(Id INTEGER,autherId INTEGER,pageCount INTEGER,lastUpdate INTEGER, PRIMARY KEY(Id));")
-	db.Exec("CREATE TABLE IF NOT EXISTS bookUrl(Id INTEGER, bookId INTEGER, path TEXT, addDate INTEGER, addByUser INTEGER, PRIMARY KEY(Id));")
+	db.Exec("CREATE TABLE IF NOT EXISTS book(Id INTEGER, name TEXT, autherId INTEGER, pageCount INTEGER, addDate INTEGER, lastUpdate INTEGER, PRIMARY KEY(Id));")
+	db.Exec("CREATE TABLE IF NOT EXISTS bookUrl(Id INTEGER, bookId INTEGER, addDate INTEGER, addByUser INTEGER, PRIMARY KEY(Id));")
 	db.Exec("CREATE TABLE IF NOT EXISTS bookTages(Id INTEGER,name TEXT,parentTageId INTEGER, PRIMARY KEY(Id));")
-	db.Exec("CREATE TABLE IF NOT EXISTS bookPage(Id INTEGER,pageCount INTEGER, addData INTEGER,bookId INTEGER, fileName TEXT, PRIMARY KEY(Id));")
+	db.Exec("CREATE TABLE IF NOT EXISTS bookPage(Id INTEGER,name TEXT, pageCount INTEGER, addByUser INTEGER,bookId INTEGER, fileName TEXT, addDate INTEGER, PRIMARY KEY(Id));")
 }
 
 // user cotroles
@@ -83,6 +83,7 @@ func AddAuther(autherName string) int {
 func RenameAuther(autherName string, Id int) {
 	db.Exec("UPDATE Auther SET name=? WHERE Id=?;", autherName, Id)
 }
+func scanAuther()
 
 func AddBook(bookInfo Book) {
 
