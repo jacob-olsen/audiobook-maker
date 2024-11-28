@@ -83,7 +83,9 @@ func AddAuther(autherName string) int {
 func RenameAuther(autherName string, Id int) {
 	db.Exec("UPDATE Auther SET name=? WHERE Id=?;", autherName, Id)
 }
-func scanAuther()
+func scanAuther() {
+
+}
 
 func AddBook(bookInfo Book) {
 
