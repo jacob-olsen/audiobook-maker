@@ -31,7 +31,7 @@ func MakeTabels() {
 	}
 	db.Exec("CREATE TABLE IF NOT EXISTS user(Id INTEGER,userName TEXT, passWord TEXT, PRIMARY KEY(Id));")
 	db.Exec("CREATE TABLE IF NOT EXISTS Auther(Id INTEGER,name TEXT, PRIMARY KEY(Id));")
-	db.Exec("CREATE TABLE IF NOT EXISTS book(Id INTEGER, name TEXT, autherId INTEGER, pageCount INTEGER, addDate INTEGER, lastUpdate INTEGER, PRIMARY KEY(Id));")
+	db.Exec("CREATE TABLE IF NOT EXISTS book(Id INTEGER, name TEXT, description TEXT, autherId INTEGER, pageCount INTEGER, addDate INTEGER, lastUpdate INTEGER, PRIMARY KEY(Id));")
 	db.Exec("CREATE TABLE IF NOT EXISTS bookUrl(Id INTEGER, bookId INTEGER, addDate INTEGER, addByUser INTEGER, PRIMARY KEY(Id));")
 	db.Exec("CREATE TABLE IF NOT EXISTS bookTages(Id INTEGER,name TEXT,parentTageId INTEGER, PRIMARY KEY(Id));")
 	db.Exec("CREATE TABLE IF NOT EXISTS bookPage(Id INTEGER,name TEXT, pageCount INTEGER, addByUser INTEGER,bookId INTEGER, fileName TEXT, addDate INTEGER, PRIMARY KEY(Id));")
@@ -89,4 +89,15 @@ func scanAuther() {
 
 func AddBook(bookInfo Book) {
 
+}
+func GetBook(bookId string) (bookData Book) {
+	var addDate int
+	var lastUpdate int
+
+	err := db.QueryRow("SELECT Id, name, description, autherId, pageCount, addDate, lastUpdate FROM book WHERE Id=?;", bookId).Scan(&bookData.Id, &bookData.Name, &bookData.Description, &bookData.AutherId, &bookData.PageCount, &addDate, &lastUpdate)
+	if err != nil {
+		bookData.Id = 0
+		return
+	}
+	return
 }

@@ -29,4 +29,30 @@ func LoadUrlPaths() {
 		}
 		temp.Execute(w, "jacob")
 	})
+	http.HandleFunc("/book/{bookId}", func(w http.ResponseWriter, r *http.Request) {
+		BookId := r.PathValue("bookId")
+		bookData := metahandler.GetBook(BookId)
+
+		if bookData.Id == 0 {
+			temp, err := template.ParseFiles("html/bookInfoErr.html", "html/templet.html")
+			if err != nil {
+				panic(err)
+			}
+			temp.Execute(w, BookId)
+		} else {
+			temp, err := template.ParseFiles("html/bookInfo.html", "html/templet.html")
+			if err != nil {
+				panic(err)
+			}
+			temp.Execute(w, bookData)
+		}
+	})
+	http.HandleFunc("/book/{bookId}/page/{pageId}", func(w http.ResponseWriter, r *http.Request) {
+		fmt.Println("read page")
+		temp, err := template.ParseFiles("html/bookList.html", "html/templet.html")
+		if err != nil {
+			panic(err)
+		}
+		temp.Execute(w, "jacob")
+	})
 }

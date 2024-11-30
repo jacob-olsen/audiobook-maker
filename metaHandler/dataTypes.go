@@ -14,12 +14,14 @@ type Auther struct {
 }
 
 type Book struct {
-	Id         int
-	AutherId   int
-	PageCount  int
-	LastUpdate time.Time
-	Url        []BookUrl
-	Tages      []BookTages
+	Id          int
+	Name        string
+	Description string
+	AutherId    int
+	PageCount   int
+	LastUpdate  time.Time
+	Url         []BookUrl
+	Tages       []BookTages
 }
 type BookUrl struct {
 	Id        int
